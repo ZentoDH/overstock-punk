@@ -1,0 +1,22 @@
+
+<div class="mat-dialog-header">
+    <h1>{{beer.name}}'s details</h1>
+    <button mat-button tabindex="-1" [mat-dialog-close]="false">
+        <mat-icon>
+            clear
+        </mat-icon>
+    </button>
+    <div class="divider"></div>
+</div>
+
+<div class="page-container">
+    <!-- <h1 class="title">{{beer.name}}'s details</h1> -->
+    <p class="tagline">{{beer.tagline}}</p>
+    <div class="details">
+        <p>{{beer.description}}</p>
+        <p class="list-title">Goes great with:</p>
+        <ul *ngIf="beer.food_pairing">
+            <li *ngFor="let food of beer.food_pairing">{{food}}</li>
+        </ul>
+    </div>
+</div>

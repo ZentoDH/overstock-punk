@@ -1,0 +1,43 @@
+<div class="page-container">
+    <h1>Beer list</h1>
+    <button class="favourites" mat-flat-button color="primary" (click)="openFavourites()">Favourites</button>
+    <div class="table-container mat-elevation-z2">
+        <div class="loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+            <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            <div class="loader" *ngIf="isRateLimitReached">
+                Error getting data or API limit reached
+            </div>
+        </div>
+        <table mat-table [dataSource]="data" matSortDisableClear>
+            <ng-container matColumnDef="favourites">
+                <th mat-header-cell *matHeaderCellDef>Favourites</th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button *ngIf="!isInFavourites(row)" (click)="addToFavourites(row)">
+                        <mat-icon>star_border</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="isInFavourites(row)" (click)="removeFromFavourites(row)">
+                        <mat-icon>star</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let row" (click)="openBeerDetails(row)">{{row.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="tagline">
+                <th mat-header-cell *matHeaderCellDef>Tagline</th>
+                <td mat-cell *matCellDef="let row" (click)="openBeerDetails(row)">{{row.tagline}}</td>
+            </ng-container>
+            <ng-container matColumnDef="first_brewed">
+                <th mat-header-cell *matHeaderCellDef>First brewed</th>
+                <td mat-cell *matCellDef="let row" (click)="openBeerDetails(row)">{{row.first_brewed}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="resultsLength" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+            showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

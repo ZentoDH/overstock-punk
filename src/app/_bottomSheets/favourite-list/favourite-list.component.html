@@ -1,0 +1,7 @@
+<div *ngIf="favourites.length">
+    <div class="beer" *ngFor="let beer of favourites">
+        <p (click)="openBeerDetails(beer)">{{beer.name}}</p>
+        <button mat-icon-button color="warn" (click)="removeFromFavourites(beer)"><mat-icon>delete</mat-icon></button>
+    </div>
+</div>
+<p *ngIf="!favourites.length">You haven't selected any favourites</p>
